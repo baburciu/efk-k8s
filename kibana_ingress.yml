@@ -1,0 +1,22 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kibana-ingress
+  namespace: $(ns)
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/app-root: /kibana
+spec:
+ rules:
+ - host: kibana.$(base_url)
+   http:
+     paths:
+     - path: /
+       pathType: Prefix
+       backend:
+         service:
+          name: kibana
+          port:
+           number: 5601
+
