@@ -45,7 +45,10 @@ Configuring Kibana dashboard
 Troubleshooting
 ---------------
 
-Once installed, check the  Elasticsearch `$(es_svc): es-logging-svc` status;
+Once installed, check the  Elasticsearch `$(es_svc): es-logging-svc` status from the `kibana` pod for example;
+```shell
+kubectl -n efk-logging-ns exec -it `kubectl -n efk-logging-ns get pods | grep kibana | awk {'print $1'}` -- curl http://es-logging-svc:9200/_cluster/state?pretty
+```
 ```shell
 root@master-node:~/efk-test-final# kubectl -n efk-logging-ns exec -it `kubectl -n efk-logging-ns get pods | grep kibana | awk {'print $1'}` -- curl http://es-logging-svc:9200/_cluster/state?pretty | head -30
 {
